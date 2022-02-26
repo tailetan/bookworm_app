@@ -42,7 +42,7 @@ class ReviewFactory extends Factory
             'review_title' => $this->faker->sentence($this->faker->biasedNumberBetween(3, 6)),
             'review_details' => $this->faker->paragraphs($this->faker->biasedNumberBetween(3, 6), true),
             'review_date' => $this->faker->dateTimeBetween($rndDate),
-            'rating_start' => $rndRate,
+            'rating_star' => $rndRate,
         ];
     }
 }

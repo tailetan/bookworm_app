@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
 use Illuminate\support\Facades\Hash;
-use Illuminate\support\Facades\Auth;
 
 use App\Models\User;
 class  AuthController extends Controller
@@ -57,13 +56,13 @@ class  AuthController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request-> last_name,
             'email'=> $request->email,
-            'password' =>  Hash::make($request->password),
+            'password' =>  bcrypt($request->password),
         ]);
         return response()->json(
             [
                 'message' => "Created account",
             ],
-            200
+            201
         );
     }
     public function user(Request $request){

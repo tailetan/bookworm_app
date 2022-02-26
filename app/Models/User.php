@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 //use Laravel\Passport\HasApiTokens;
 use Laravel\Sanctum\HasApiTokens;
-
+use Kirschbaum\PowerJoins\PowerJoins;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
