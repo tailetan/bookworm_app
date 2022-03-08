@@ -30,12 +30,15 @@ Route::middleware('auth:sanctum')->group(function (){
 Route::post('login', [AuthController::class,'login']);
 Route::post('register', [AuthController::class,'register']);
 
-Route::get('getAllBooks', [BookController::class,'getAllBooks']);
+Route::get('books', [BookController::class,'getAllBooks']);
 
 Route::get('getOnSaleBooks', [BookController::class,'getOnSaleBooks']);
 Route::get('getRecommendedBooks', [BookController::class,'getRecommendedBooks']);
 Route::get('getPopularBooks', [HomeController::class,'getPopularBooks']);
+Route::get('book/{id}', [BookController::class, 'getBookByID']);
+//Route::get('book/{id}', [BookController::class, 'getListReviewByBookID']);
+
 
 Route::apiResource('/', HomeController::class);
 
-Route::get('books', [BookController::class,'list']);
+//Route::get('books', [BookController::class,'list']);

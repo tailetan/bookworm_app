@@ -2,47 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Book\BookRepository;
 use Illuminate\Http\Request;
-
 use App\Models\Book;
-//use App\Repositories\Book\BookRepository;
-class BookController extends Controller
+
+class HomeController extends Controller
 {
-    public $bookRepository;
-    public function __construct(BookRepository $bookRepository){
-        $this->bookRepository = $bookRepository;
-    }
-
-    public function getAllBooks(Request $request){
-
-        $allBooks = $this->bookRepository->getAllBooks($request);
-         return $allBooks;
-    }
-    public function getOnSaleBooks(){
-        $onSaleBooks = $this->bookRepository->getOnSaleBooks();
-        return $onSaleBooks;
-    }
-    public function getRecommendedBooks(){
-        $recommendedBooks = $this->bookRepository->getRecommendedBooks();
-        return $recommendedBooks;
-    }
-
-    public function getPopularBooks(){
-        $popularBooks = $this->bookRepository->getPopularBooks();
-        return $popularBooks;
-    }
-
-    public function getBookByID($id){
-        $book = $this->bookRepository->getBookByID($id);
-        return $book;
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+
+
+    function getRecommendedBooks(){
+
+    }
+
+    function getPopularBooks(){
+        return Book::join('author', 'author.id', '=', 'book.author_id')
+                ->select('book.id',
+                'book.book_title',
+                'book.book_price',
+                'book.book_cover_photo',
+                'author.author_name')
+                ->selectRaw('(CASE WHEN EXISTS (select book_id from discount where book.id=book_id)
+                              THEN (select discount_price from discount where book_id=book.id)
+                              ELSE book.book_price END) as final_price')
+                ->join('review', 'review.book_id', '=', 'book.id')
+                ->withCount('review')
+                ->distinct()
+                ->orderBy('review_count', 'desc')
+                ->orderBy('final_price', 'asc')
+                ->limit(8)
+                ->get();
+    }
+    public function index()
     {
 
     }
@@ -66,7 +60,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
+
+
     }
 
     /**
