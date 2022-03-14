@@ -28,11 +28,18 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::get('logout', [AuthController::class,'logout']);
 });
 Route::post('login', [AuthController::class,'login']);
+
 Route::post('register', [AuthController::class,'register']);
 
 Route::get('books', [BookController::class,'getAllBooks']);
 
 Route::get('getOnSaleBooks', [BookController::class,'getOnSaleBooks']);
+Route::get('getAllAuthors', [BookController::class,'getAllAuthors']);
+Route::get('getAllCategories', [BookController::class,'getAllCategories']);
+Route::get('getListReviewByID/{id}', [BookController::class,'getListReviewByID']);
+Route::post('review/{id}', [ReviewController::class,'review']);
+
+
 Route::get('getRecommendedBooks', [BookController::class,'getRecommendedBooks']);
 Route::get('getPopularBooks', [HomeController::class,'getPopularBooks']);
 Route::get('book/{id}', [BookController::class, 'getBookByID']);

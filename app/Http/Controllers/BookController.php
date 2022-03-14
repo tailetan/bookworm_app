@@ -37,6 +37,20 @@ class BookController extends Controller
         $book = $this->bookRepository->getBookByID($id);
         return $book;
     }
+    public function getAllAuthors(){
+        $allAuthors = $this->bookRepository->getAllAuthors();
+        return $allAuthors;
+    }
+    public function getAllCategories(){
+        $allCategories = $this->bookRepository->getAllCategories();
+        return $allCategories;
+    }
+    public function getListReviewByID($id){
+        $listReview = $this->bookRepository->getListReviewByID($id);
+        return $listReview;
+    }
+
+
     /**
      * Display a listing of the resource.
      *

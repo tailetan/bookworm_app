@@ -3,6 +3,12 @@
 namespace App\Repositories\Book;
 
 use App\Models\Book;
+use App\Models\Author;
+use App\Models\Category;
+use App\Models\Review;
+
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -124,7 +130,14 @@ class BookRepository
 
         return $allbooks;
     }
+    public function getAllAuthors(){
+        return Author::select('author_name')->get();
 
+    }
+    public function getAllCategories(){
+        return Category::select('category_name')->get();
+
+    }
     public function getOnSaleBooks(){
         return Book::join('discount', 'discount.book_id', '=', 'book.id' )
             -> join('author', 'author.id', '=', 'book.author_id')
@@ -183,6 +196,7 @@ class BookRepository
             ->leftjoin('discount', 'book.id', '=', 'discount.book_id')
             ->leftjoin('book_avg_rating', 'book.id', '=', 'book_avg_rating.id')
             ->leftjoin('count_star', 'book.id', '=', 'count_star.id')
+            ->leftjoin('total_review','book.id', '=', 'total_review.id')
             ->select('book.id',
                 'book.book_title',
                 'book.book_summary',
@@ -196,12 +210,18 @@ class BookRepository
                 'count_star.four_star',
                 'count_star.three_star',
                 'count_star.two_star',
-                'count_star.one_star'
+                'count_star.one_star',
+                'total_review.total_review'
+
             )
             ->where('book.id', '=', $id)
             ->get();
     }
+    public function getListReviewByID($id){
+        return Review::all()->where('book_id', '=', $id)->get();
+    }
+
 //    public function getListReviewByBookID(Request $request){
-//        return Book::
+//        return Book::join('review', 'review.book_id', '=', 'book.id');
 //    }
 }
