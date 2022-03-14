@@ -45,8 +45,8 @@ class BookController extends Controller
         $allCategories = $this->bookRepository->getAllCategories();
         return $allCategories;
     }
-    public function getListReviewByID($id){
-        $listReview = $this->bookRepository->getListReviewByID($id);
+    public function getListReviewByID(Request $request){
+        $listReview = $this->bookRepository->getListReviewByID($request->id);
         return $listReview;
     }
 

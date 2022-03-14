@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ReviewController;
 
 use App\Models\Book;
 //use App\Http\Controllers\ProductController;
@@ -36,8 +37,8 @@ Route::get('books', [BookController::class,'getAllBooks']);
 Route::get('getOnSaleBooks', [BookController::class,'getOnSaleBooks']);
 Route::get('getAllAuthors', [BookController::class,'getAllAuthors']);
 Route::get('getAllCategories', [BookController::class,'getAllCategories']);
-Route::get('getListReviewByID/{id}', [BookController::class,'getListReviewByID']);
-Route::post('review/{id}', [ReviewController::class,'review']);
+Route::get('book/list-review/{id}', [BookController::class,'getListReviewByID']);
+Route::post('book/review/{id}', [ReviewController::class,'update']);
 
 
 Route::get('getRecommendedBooks', [BookController::class,'getRecommendedBooks']);

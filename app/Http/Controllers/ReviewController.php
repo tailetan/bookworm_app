@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Validator;
+Use \Carbon\Carbon;
 
 
 class ReviewController extends Controller
 {
-    public function review(Request $request)
+    public function update(Request $request)
     {
         $messages =[
             'title.required'=>'Please fill in the title field',
@@ -31,14 +32,17 @@ class ReviewController extends Controller
                 404
             );
         }
+        $date = Carbon::now();
         Review::create([
+            'book_id'=>$request->id,
             'review_title' => $request->review_title,
-            'review_detail' => $request-> review_details,
+            'review_details' => $request-> review_details,
+            'review_date' =>$date->toDateString(),
             'rating_star'=> $request->rating_star,
         ]);
         return response()->json(
             [
-                'message' => "Reviewed successfully",
+                'message' => "Review updated",
             ],
             201
         );

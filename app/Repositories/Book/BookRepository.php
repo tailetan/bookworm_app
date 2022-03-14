@@ -218,7 +218,7 @@ class BookRepository
             ->get();
     }
     public function getListReviewByID($id){
-        return Review::all()->where('book_id', '=', $id)->get();
+        return Review::all()->where('book_id', '=', $id);
     }
 
 //    public function getListReviewByBookID(Request $request){
