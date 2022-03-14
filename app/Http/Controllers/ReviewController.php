@@ -19,8 +19,8 @@ class ReviewController extends Controller
 
         ];
         $validate = Validator::make($request->all(),[
-            'review_title' => ['required', 'string','min:8', 'max:255'],
-            'review_details' => ['required', 'string', 'max:255'],
+            'review_title' => ['required', 'string','min:8', 'max:120'],
+            'review_details' => ['string'],
             'rating_star' => ['required'],
         ], $messages);
 
